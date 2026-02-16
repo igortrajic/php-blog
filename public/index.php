@@ -3,21 +3,30 @@
     include 'header.php'; 
 ?>
 
-<main class="pt-24 pb-12 max-w-screen-xl mx-auto p-4">
-    <header class="mb-10">
-        <h1 class="text-4xl font-extrabold text-heading">Latest Stories</h1>
-        <p class="text-body mt-2">Insights, tutorials, and thoughts on web development.</p>
+<main class="pt-28 pb-12 max-w-screen-xl mx-auto px-4">
+    <header class="mb-12">
+        <h1 class="text-4xl font-black text-gray-900 tracking-tight">Latest Stories</h1>
+        <p class="text-gray-500 mt-2">Fresh insights from our community.</p>
     </header>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <article class="border border-default rounded-base overflow-hidden hover:shadow-lg transition-shadow">
-            <div class="p-6">
-                <span class="text-xs font-bold uppercase text-fg-brand">Tutorial</span>
-                <h2 class="text-xl font-bold mt-2 text-heading">Getting Started with PHP</h2>
-                <p class="text-body mt-3 line-clamp-3">This is a short excerpt from the blog post to entice readers...</p>
-                <a href="postDetail.php?id=1" class="inline-block mt-4 text-fg-brand font-semibold hover:underline">Read more →</a>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <article class="group bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-md transition-all">
+            <div class="aspect-video overflow-hidden bg-gray-100">
+                <img src="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="PHP Post">
+            </div>
+            <div class="p-5">
+                <span class="text-blue-600 text-xs font-bold uppercase tracking-widest">Tutorial</span>
+                <h2 class="text-lg font-bold mt-2 text-gray-900">Modern PHP Development</h2>
+                <a href="postDetail.php" class="inline-block mt-4 text-sm font-bold text-gray-900 hover:text-blue-600">Read Article →</a>
             </div>
         </article>
+    </div>
+
+    <div class="mt-12 text-center">
+        <a href="all-posts.php" class="inline-block px-8 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all">
+            View All Posts
+        </a>
     </div>
 </main>
 
