@@ -1,0 +1,7 @@
+@import "tailwindcss";
+
+/* In v4, we tell Tailwind where to look right here in the CSS.
+   Adjust the path to match where your PHP files are relative to this CSS file.
+*/
+@source "../public/**/*.php";
+@source "../src/**/*.php";
