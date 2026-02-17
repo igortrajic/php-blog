@@ -17,6 +17,8 @@ class Post {
         $sql = "INSERT INTO posts (title, image, content, user_id)
         VALUES (:title, :image, :content, :user_id)";
 
+        $stmt = $db->prepare($sql);
+
         return $stmt->execute([
         ':title'   => $this->title,
         ':content' => $this->content,

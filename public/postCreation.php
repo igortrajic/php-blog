@@ -1,6 +1,4 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
 
 require_once __DIR__ . '/../src/Database.php'; 
 require_once __DIR__ . '/../src/Posts.php';
@@ -15,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $content = trim($content);
 
     if (empty($title) || empty($content)) {
-        $message = "Title and conent are required!";
+        $message = "Title and content are required!";
     } elseif(!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] !== UPLOAD_ERR_OK){
         $message = "Please select a valid image!";
     } else {
@@ -27,11 +25,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Error: Only JPG, JPEG, and PNG files are allowed";
         } else {
             $tmpName   = $_FILES['fileToUpload']['tmp_name'];
-            $imagePath = __DIR__ . '/../uploads/' . basename($fileName);
+             $imagePath = __DIR__ . '/../uploads/' . uniqid('post_', true) . '.' . $extension;
 
             $post = new Post([
-                'title' => $_POST['title'],
-                'content' => $_POST['content'],
+                'title' => $title,
+                'content' => $content,
                 'image' => $imagePath,
                 'user_id' => 1
             ]);
