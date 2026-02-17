@@ -13,6 +13,7 @@ class Post {
         $this->userId = 1;
     }
 
+
     public function create($db) {
         $sql = "INSERT INTO posts (title, image, content, user_id)
         VALUES (:title, :image, :content, :user_id)";
@@ -26,6 +27,7 @@ class Post {
         ':user_id' => $this->userId
         ]);
     }
+
     
     public function moveFile($temporaryPath){
         if (move_uploaded_file($temporaryPath, $this->image)) {

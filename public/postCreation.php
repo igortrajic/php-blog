@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $title = filter_var($_POST['title'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
     $title = trim($title);
 
+
     $content = filter_var($_POST['content'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
     $content = trim($content);
 
@@ -18,15 +19,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = "Please select a valid image!";
     } else {
         $fileName = $_FILES['fileToUpload']['name'];
+        $tmpName = $_FILES['fileToUpload']['tmp_name'];
+
         $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
-        $allowed = ['jpg', 'jpeg', 'png'];
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
 
-        if (!in_array($extension, $allowed)) {
-        $message = "Error: Only JPG, JPEG, and PNG files are allowed";
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $realMimeType = $finfo->file($tmpName);
+        $allowedMimeTypes = ['image/jpeg', 'image/png'];
+
+        if (!in_array($extension, $allowedExtensions)) {
+            $message = "Error: Invalid file extension.";
+        } elseif (!in_array($realMimeType, $allowedMimeTypes)) {
+            $message = "Error: File content does not match its extension.";
         } else {
-            $tmpName   = $_FILES['fileToUpload']['tmp_name'];
-             $imagePath = __DIR__ . '/../uploads/' . uniqid('post_', true) . '.' . $extension;
+            $imagePath = 'uploads/' . uniqid('post_', true) . '.' . $extension;
 
+        
             $post = new Post([
                 'title' => $title,
                 'content' => $content,
@@ -47,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         }
     }
-
 }
 
 include 'postCreationView.php';

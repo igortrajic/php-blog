@@ -1,3 +1,5 @@
 /vendor/
 database.db
 node_modules
+uploads
+css
