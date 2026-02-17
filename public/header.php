@@ -8,7 +8,7 @@
 </head>
 <body class="bg-gray-50 text-slate-900">
 <nav class="bg-white/80 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-gray-200">
-  <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="index.php" class="flex items-center space-x-2">
         <div class="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center">
             <span class="text-white font-bold">I</span>

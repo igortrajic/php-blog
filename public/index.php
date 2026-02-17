@@ -3,7 +3,7 @@
     include 'header.php'; 
 ?>
 
-<main class="pt-28 pb-12 max-w-screen-xl mx-auto px-4">
+<main class="pt-28 pb-12 max-w-7xl mx-auto px-4">
     <header class="mb-12">
         <h1 class="text-4xl font-black text-gray-900 tracking-tight">Latest Stories</h1>
         <p class="text-gray-500 mt-2">Fresh insights from our community.</p>
@@ -21,12 +21,6 @@
                 <a href="postDetail.php" class="inline-block mt-4 text-sm font-bold text-gray-900 hover:text-blue-600">Read Article →</a>
             </div>
         </article>
-    </div>
-
-    <div class="mt-12 text-center">
-        <a href="all-posts.php" class="inline-block px-8 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all">
-            View All Posts
-        </a>
     </div>
 </main>
 

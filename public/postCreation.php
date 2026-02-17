@@ -1,46 +1,62 @@
-<?php include 'header.php'; ?>
-<main class="pt-28 pb-12 max-w-2xl mx-auto px-4">
-    <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-        <h1 class="text-3xl font-bold mb-8 text-gray-900">Create New Post</h1>
+<?php
+
+require_once __DIR__ . '/../src/Database.php'; 
+require_once __DIR__ . '/../src/Posts.php';
+
+$message = ""; 
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $title = filter_var($_POST['title'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+    $title = trim($title);
+
+
+    $content = filter_var($_POST['content'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+    $content = trim($content);
+
+    if (empty($title) || empty($content)) {
+        $message = "Title and content are required!";
+    } elseif(!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] !== UPLOAD_ERR_OK){
+        $message = "Please select a valid image!";
+    } else {
+        $fileName = $_FILES['fileToUpload']['name'];
+        $tmpName = $_FILES['fileToUpload']['tmp_name'];
+
+        $extension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+        $allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $realMimeType = $finfo->file($tmpName);
+        $allowedMimeTypes = ['image/jpeg', 'image/png'];
+
+        if (!in_array($extension, $allowedExtensions)) {
+            $message = "Error: Invalid file extension.";
+        } elseif (!in_array($realMimeType, $allowedMimeTypes)) {
+            $message = "Error: File content does not match its extension.";
+        } else {
+            $imagePath = 'uploads/' . uniqid('post_', true) . '.' . $extension;
+
         
-        <form action="upload.php" method="POST" enctype="multipart/form-data" class="space-y-6">
-            
-            <div>
-                <label class="block mb-2 text-sm font-bold text-gray-700">Post Title</label>
-                <input type="text" name="title" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 transition-all outline-none" placeholder="Enter a catchy title...">
-            </div>
+            $post = new Post([
+                'title' => $title,
+                'content' => $content,
+                'image' => $imagePath,
+                'user_id' => 1
+            ]);
 
-            <div>
-                <label class="block mb-2 text-sm font-bold text-gray-700">Category</label>
-                <select name="category" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 outline-none">
-                    <option>Technology</option>
-                    <option>Tutorial</option>
-                    <option>Lifestyle</option>
-                </select>
-            </div>
+            if ($post->moveFile($tmpName)) {
+                $db = Database::getConnection();
 
-            <div>
-                <label class="block mb-2 text-sm font-bold text-gray-700">Featured Image</label>
-                <div class="flex items-center justify-center w-full">
-                    <label class="flex flex-col items-center justify-center w-full h-32 border-2 border-gray-200 border-dashed rounded-xl cursor-pointer bg-gray-50 hover:bg-gray-100 transition-colors">
-                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                            <svg class="w-8 h-8 mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>
-                            <p class="text-xs text-gray-500">Click to upload or drag and drop</p>
-                        </div>
-                        <input type="file" name="fileToUpload" id="fileToUpload" class="hidden" />
-                    </label>
-                </div>
-            </div>
+                if ($post->create($db)) {
+                    $message = "Post created successfully!";
+                } else {
+                    $message = "Error saving post.";
+                }
+            } else {
+                $message = "Failed to upload the image.";
+            }
+        }
+    }
+}
 
-            <div>
-                <label class="block mb-2 text-sm font-bold text-gray-700">Content</label>
-                <textarea name="content" rows="8" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 outline-none" placeholder="Write your story..."></textarea>
-            </div>
-
-            <button type="submit" name="submit" class="w-full bg-blue-600 text-white font-bold py-4 rounded-xl hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all">
-                Publish Story
-            </button>
-        </form>
-    </div>
-</main>
-<?php include 'footer.php'; ?>
+include 'postCreationView.php';
+?>
