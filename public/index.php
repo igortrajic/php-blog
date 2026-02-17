@@ -22,12 +22,6 @@
             </div>
         </article>
     </div>
-
-    <div class="mt-12 text-center">
-        <a href="all-posts.php" class="inline-block px-8 py-3 bg-gray-900 text-white font-bold rounded-xl hover:bg-black transition-all">
-            View All Posts
-        </a>
-    </div>
 </main>
 
 <?php include 'footer.php'; ?>
