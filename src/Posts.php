@@ -35,6 +35,23 @@ class Post {
     }
     return false;
     }
+
+    public static function getRecentPosts($db, $limit = 3) {
+        $sql = "SELECT id, title, image FROM posts ORDER BY id DESC LIMIT :limit";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetchAll();
+    }
+
+    public static function getAllPosts($db){
+        $sql = "SELECT id,title,content,image FROM posts ORDER BY id DESC";
+        $stmt = $db->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
+    }
 }
 
 ?>
