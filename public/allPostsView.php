@@ -1,5 +1,5 @@
 <?php 
-    $pageTitle = "All Posts - EchoLog";
+    $pageTitle = "All Posts - IdeGas";
     include 'header.php'; 
 ?>
 
@@ -25,10 +25,10 @@
                         
                         <?php 
                             $cleanContent = strip_tags($post['content']);
-                            $excerpt = strlen($cleanContent) > 100 ? substr($cleanContent, 0, 100) . '...' : $cleanContent;
+                                                     $excerpt = mb_strlen($cleanContent) > 100 ? mb_substr($cleanContent, 0, 100) . '...' : $cleanContent;
                         ?>
                         <p class="text-sm text-gray-500 mt-2 grow"><?= htmlspecialchars($excerpt) ?></p>
-                        <a href="postDetail.php?id=<?= urlencode($post['id']) ?>" class="inline-block mt-4 text-sm font-bold text-blue-600 hover:text-blue-800 transition-colors">Read Post →</a>
+                          <a href="postDetail.php?id=<?= urlencode($post['id']) ?>" class="inline-block mt-4 text-sm font-bold text-gray-900 hover:text-blue-600">Read Article →</a>
                     </div>
                 </article>
             <?php endforeach; ?>

@@ -1,7 +1,5 @@
 <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+
 
 require_once __DIR__ . '/../src/Database.php'; 
 require_once __DIR__ . '/../src/Posts.php';
@@ -13,8 +11,7 @@ try {
     $allPosts = Post::getAllPosts($db);
 
 } catch (Exception $e) {
-    $allPosts = [];
-    $errorMessage = "Database Error: " . $e->getMessage(); 
+    $errorMessage = "An error occurred while fetching posts. Please try again later.";
 }
 
 include 'allPostsView.php';
