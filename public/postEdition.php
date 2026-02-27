@@ -12,8 +12,8 @@ $id = (int)$id;
 $post = Post::getPostById($db, $id);
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $title = filter_var($_POST['title'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
-    $content = filter_var($_POST['content'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
+    $title = trim($_POST['title'] ?? '');
+    $content = trim($_POST['content'] ?? '');
 
     $imagePath = $post['image']; 
 
@@ -33,7 +33,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         if (!empty($_FILES['fileToUpload']['name'])) {
-            $updatedPost->moveFile($_FILES['fileToUpload']['tmp_name']);
+            $fileName = $_FILES['fileToUpload']['name'];
+            $tmpName = $_FILES['fileToUpload']['tmp_name'];
+            $extenstion = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+            $allowedExtensions = ['jpg', 'jpeg', 'png'];
+
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $realMimeType = $finfo->file($tmpName);
+            $allowedMimeTypes =  ['image/jpeg', 'image/png'];
+
+            if (!in_array($extension, $allowedExtensions) || !in_array($realMimeType, allowedMimeType)){
+                $message = "Error: Invalid image file.";
+            } else {
+                $imagePath = 'uploads/' . uniqid('post_', true) . '.' . $extension;
+            }
         }
 
         if ($updatedPost->update($db, $id)) {

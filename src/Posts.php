@@ -64,18 +64,17 @@ class Post {
     }
 
     public function update($db, $id) {
-    $sql = "UPDATE posts 
-            SET title = :title, content = :content, image = :image 
-            WHERE id = :id";
+        $sql = "UPDATE posts 
+        SET title = :title, content = :content, image = :image 
+        WHERE id = :id";
 
-    $stmt = $db->prepare($sql);
+        $stmt = $db->prepare($sql);
 
-    return $stmt->execute([
-        ':title'   => $this->title,
-        ':content' => $this->content,
-        ':image'   => $this->image,
-        ':id'      => $id
-    ]);
+        $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+        $stmt->bindValue(':image', $this->image, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
     }
 }
 
