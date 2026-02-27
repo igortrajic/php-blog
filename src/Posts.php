@@ -52,6 +52,30 @@ class Post {
 
         return $stmt->fetchAll();
     }
+
+    public static function getPostById($db, $id){
+        $sql = "SELECT id, title, content, image  FROM posts WHERE id = :id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        
+        return $stmt->fetch();
+
+    }
+
+    public function update($db, $id) {
+        $sql = "UPDATE posts 
+        SET title = :title, content = :content, image = :image 
+        WHERE id = :id";
+
+        $stmt = $db->prepare($sql);
+
+        $stmt->bindValue(':title', $this->title, PDO::PARAM_STR);
+        $stmt->bindValue(':content', $this->content, PDO::PARAM_STR);
+        $stmt->bindValue(':image', $this->image, PDO::PARAM_STR);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+        return $stmt->execute();
+    }
 }
 
 ?>
