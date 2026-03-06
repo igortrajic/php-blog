@@ -8,7 +8,9 @@ $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 $post = Post::getPostById($db, $id); 
 
 if (!$post) {
-    die("Post not found."); 
+    http_response_code(404);
+    echo "Post not found.";
+    exit;
 }
 
 include 'postDetailView.php';
