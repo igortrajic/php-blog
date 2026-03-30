@@ -11,7 +11,7 @@ public static function getUserByEmail($db, $email){
     return $stmt->fetch();
 
 }
-public static function CreateUser($db, $name, $email, $password){
+public static function createUser($db, $name, $email, $password){
     $sql  = "INSERT INTO users(name,email,password)
             VALUES(:name,:email,:password)";
     $stmt = $db->prepare($sql);

@@ -4,18 +4,22 @@
         <h1 class="text-3xl font-black mb-2">Create Account</h1>
         <p class="text-gray-500 mb-8">Join the community and start writing.</p>
         <?php if (!empty($error)): ?>
-            <div style="color: red; margin-bottom: 20px;">
-            <?php foreach ($error as $e) echo "<p>$e</p>"; ?>
-        </div>
+            <div class="mb-5 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl">
+                <?php foreach ($error as $e): ?>
+                    <p class="text-red-700 text-sm font-medium">
+                        <?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8'); ?>
+                    </p>
+                <?php endforeach; ?>
+            </div>
         <?php endif; ?>
         <form action="register.php" class="space-y-5" method="POST" >
             <div>
                 <label class="block mb-2 text-sm font-medium">Full Name</label>
-                <input type="text" name='name' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example">
+                                <input type="text" name='name' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example" value="<?php echo htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium">Email Address</label>
-                <input type="email" name='email' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example@example.com">
+                <input type="email" name='email' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example@example.com" value="<?php echo htmlspecialchars($_POST['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium">Password</label>
