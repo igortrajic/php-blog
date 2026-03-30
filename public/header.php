@@ -17,7 +17,7 @@
     </a>
     <div class="flex md:order-2 space-x-3">
         <a href="loginForm.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Login</a>
-        <a href="registerPage.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Get Started</a>
+        <a href="registerView.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Get Started</a>
     </div>
     <div class="hidden w-full md:block md:w-auto md:order-1">
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
