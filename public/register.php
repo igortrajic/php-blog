@@ -34,7 +34,7 @@ if (empty($error)){
 } else {
 $securePassword = password_hash($_POST['password'], PASSWORD_DEFAULT);
 User::createUser($db, $_POST['name'], $_POST['email'], $securePassword);
-header("Location: loginForm.php");
+header("Location: loginView.php");
 exit();
 
 }
