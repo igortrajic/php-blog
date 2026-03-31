@@ -14,9 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   if (!empty($user)) {
     if (password_verify($password, $user['password'])) {
+      session_regenerate_id(true);
       $_SESSION['id'] = $user['id'];
       $_SESSION['name'] = $user['name'];
-      header("Location: indexView.php" );
+      header("Location: index.php" );
       exit();
     } else {
       $error = "Invalid email or password";

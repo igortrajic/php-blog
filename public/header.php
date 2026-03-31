@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,8 +25,8 @@ session_start();
         <a href="profileView.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Profile</a>
         <a href="logout.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Log Out</a>
         <?php else: ?>
-        <a href="loginView.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Login</a>
-        <a href="registerView.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Get Started</a>
+        <a href="login.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Login</a>
+        <a href="register.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Get Started</a>
     <?php endif; ?>
 </div>
     <div class="hidden w-full md:block md:w-auto md:order-1">

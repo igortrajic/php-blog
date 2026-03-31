@@ -4,7 +4,7 @@
         <h1 class="text-3xl font-black mb-2">Welcome</h1>
         <p class="text-gray-500 mb-8">Log in to manage your account.</p>
 
-        <?php if (!empty($error)): ?>
+        <?php if (isset($error) && !empty($error)): ?>
             <div style="color: red; margin-bottom: 20px;">
                 <p><?= htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></p>
             </div>
