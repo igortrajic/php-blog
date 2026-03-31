@@ -12,6 +12,7 @@
         <h1 class="text-3xl font-bold mb-8 text-gray-900">Edit Post</h1>
         
         <form action="postEdition.php?id=<?= (int)$post['id'] ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             
             <input type="hidden" name="id" value="<?= (int)$post['id'] ?>">
 

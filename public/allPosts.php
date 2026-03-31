@@ -4,6 +4,14 @@
 require_once __DIR__ . '/../src/Database.php'; 
 require_once __DIR__ . '/../src/Posts.php';
 
+if (isset($_GET['error'])) {
+    if ($_GET['error'] === 'unauthorized') {
+        $errorMessage = "You don't have permission to edit that post!";
+    } elseif($_GET['error'] === 'not_found'){
+        $errorMessage = "We coudn't find that post.";
+    }
+}
+
 try {
     $db = Database::getConnection();
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); 

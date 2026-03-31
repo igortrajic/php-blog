@@ -2,6 +2,10 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+if (empty($_SESSION['csrf_token'])) {
+    $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -33,7 +37,9 @@ if (session_status() === PHP_SESSION_NONE) {
       <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0">
         <li><a href="index.php" class="block py-2 px-3 text-blue-600 font-bold">Home</a></li>
         <li><a href="allPosts.php" class="block py-2 px-3 text-gray-900 hover:text-blue-600">All Posts</a></li>
+        <?php if (isset($_SESSION['id'])): ?>
         <li><a href="postCreation.php" class="block py-2 px-3 text-gray-900 hover:text-blue-600">Write</a></li>
+        <?php endif ?>
       </ul>
     </div>
   </div>

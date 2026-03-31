@@ -2,11 +2,16 @@
 require_once __DIR__ . '/../src/Database.php'; 
 require_once __DIR__ . '/../src/Users.php';
 
+session_start();
+
 $db = Database::getConnection();
 
 $error = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF token validation failed.");
+    }
 
 if (empty(trim($_POST['name']))) {
     $error[] = "Name is required";
