@@ -3,7 +3,7 @@
 class User {
 
 public static function getUserByEmail($db, $email){
-    $sql = "SELECT name,email, password FROM users WHERE email = :email ";
+    $sql = "SELECT name,email,password,id FROM users WHERE email = :email ";
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':email', $email);
     $stmt->execute();

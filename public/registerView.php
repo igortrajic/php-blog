@@ -27,7 +27,7 @@
             </div>
             <button type="submit" class="w-full bg-slate-900 text-white font-bold py-3.5 rounded-xl hover:bg-black transition-all">Sign Up</button>
         </form>
-        <p class="mt-6 text-center text-sm text-gray-500">Already have an account? <a href="loginForm.php" class="text-blue-600 font-bold">Log in</a></p>
+        <p class="mt-6 text-center text-sm text-gray-500">Already have an account? <a href="login.php" class="text-blue-600 font-bold">Log in</a></p>
     </div>
 </main>
 <?php include 'footer.php'; ?>
