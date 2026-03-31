@@ -20,7 +20,9 @@
     </div>
 
     <div class="mt-12 pt-6 border-t border-gray-100 flex gap-4">
-        <a href="postEdition.php?id=<?= (int)$post['id'] ?>" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">Edit this post</a>
+        <?php if (isset($_SESSION['id']) && $_SESSION['id'] == $post['user_id']): ?>
+            <a href="postEdition.php?id=<?= (int)$post['id'] ?>" class="bg-blue-600 text-white px-6 py-2 rounded-lg font-bold">Edit this post</a>
+        <?php endif; ?>
         <a href="index.php" class="text-sm font-bold text-gray-400 hover:underline">Back to home</a>
     </div>
 </main>

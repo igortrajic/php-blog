@@ -10,7 +10,7 @@ class Post {
         $this->title = $data['title']; 
         $this->content = $data['content'];
         $this->image = $data['image'];
-        $this->userId = 1;
+        $this->userId = $data['user_id'] ?? 1;
     }
 
 
@@ -54,7 +54,7 @@ class Post {
     }
 
     public static function getPostById($db, $id){
-        $sql = "SELECT id, title, content, image  FROM posts WHERE id = :id";
+        $sql = "SELECT id, title, content, image,  user_id  FROM posts WHERE id = :id";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();

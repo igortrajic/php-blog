@@ -10,6 +10,7 @@
         <h1 class="text-3xl font-bold mb-8 text-gray-900">Create New Post</h1>
         
         <form action="postCreation.php" method="POST" enctype="multipart/form-data" class="space-y-6">
+            <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             
             <div>
                 <label class="block mb-2 text-sm font-bold text-gray-700">Post Title</label>

@@ -7,6 +7,9 @@ $db = Database::getConnection();
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  if (!isset($_POST['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF token validation failed.");
+    }
   $email = trim($_POST['email'] ?? '');
   $password = $_POST['password'] ?? '';
 

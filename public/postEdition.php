@@ -2,6 +2,8 @@
 require_once __DIR__ . '/../src/Database.php'; 
 require_once __DIR__ . '/../src/Posts.php';
 
+session_start();
+
 $message = "";
 $db = Database::getConnection();
 
@@ -15,8 +17,15 @@ if (!$post) {
     header('Location: allPosts.php?error=not_found');
     exit;
 }
+if (!isset($_SESSION['id']) || $_SESSION['id'] != $post['user_id']){
+    header('Location: allPosts.php?error=unauthorized');
+    exit();
+};
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+        die("CSRF token validation failed.");
+    }
     $title = trim($_POST['title'] ?? '');
     $content = trim($_POST['content'] ?? '');
     $imagePath = $post['image'];
