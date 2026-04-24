@@ -1,5 +1,9 @@
 <?php
-session_start();
+require_once 'flashErrors.php'; 
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -10,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
-
         setcookie(session_name(), '', [
             'expires' => time() - 42000,
             'path' => $params["path"],
@@ -23,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     session_destroy();
 
+    session_start();
+    session_regenerate_id(true);
+    set_flash("Logged out successfully. See you soon!", "success");
+    
     header("Location: index.php");
     exit();
 

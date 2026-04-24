@@ -1,4 +1,5 @@
 <?php
+require_once 'flashErrors.php';
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -15,7 +16,7 @@ if (empty($_SESSION['csrf_token'])) {
     <script src="https://cdn.tailwindcss.com"></script>
     <title>IdeGas</title>
 </head>
-<body class="bg-gray-50 text-slate-900">
+<body class="bg-gray-50 text-slate-900 flex flex-col min-h-screen">
 <nav class="bg-white/80 backdrop-blur-md fixed w-full z-20 top-0 start-0 border-b border-gray-200">
   <div class="max-w-7xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="index.php" class="flex items-center space-x-2">
@@ -27,7 +28,12 @@ if (empty($_SESSION['csrf_token'])) {
     <div class="flex md:order-2 space-x-3 items-center">
     <?php if (isset($_SESSION['id'])): ?>
         <a href="profileView.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Profile</a>
-        <a href="logout.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Log Out</a>
+        <form action="logout.php" method="POST" class="inline">
+            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">
+                Log Out
+            </button>
+        </form>
         <?php else: ?>
         <a href="login.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Login</a>
         <a href="register.php" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">Get Started</a>
