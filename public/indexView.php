@@ -4,7 +4,7 @@
 ?>
 
 <main class="pt-28 pb-12 max-w-7xl mx-auto px-4 flex-1 w-full">
-    <?php if (function_exists('display_flash')) display_flash(); ?>
+    <?php display_flash(); ?>
 
     <header class="mb-12">
         <h1 class="text-4xl font-black text-gray-900 tracking-tight">Latest Stories</h1>

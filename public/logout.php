@@ -1,10 +1,6 @@
 <?php
 require_once 'flashErrors.php'; 
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {

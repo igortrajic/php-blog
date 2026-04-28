@@ -22,7 +22,7 @@ function display_flash() {
         <div id='flash-message' class='mb-8 transition-opacity duration-500'>
             <div class='{$colors} border p-4 rounded-xl flex justify-between items-center shadow-sm'>
                 <span class='font-medium text-sm md:text-base'>" . htmlspecialchars($flash['message']) . "</span>
-                <button onclick=\"this.parentElement.parentElement.remove()\" class='text-2xl leading-none px-2'>&times;</button>
+                <button onclick=\"this.closest('#flash-message').remove()\" class='text-2xl leading-none px-2'>&times;</button>
             </div>
         </div>";
 

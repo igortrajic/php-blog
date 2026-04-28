@@ -4,8 +4,6 @@ require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Posts.php';
 require_once 'flashErrors.php';
 
-session_start();
-
 $message = ""; 
 if (!isset($_SESSION['id'])){
     header("Location: login.php");
@@ -59,6 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $message = "Post created successfully!";
                     set_flash('Post created successfully.', 'success');
                      header("Location: index.php");
+                     exit();
                 } else {
                     $message = "Error saving post.";
                 }

@@ -1,8 +1,5 @@
 <?php
 require_once 'flashErrors.php';
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
 
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
@@ -29,7 +26,7 @@ if (empty($_SESSION['csrf_token'])) {
     <?php if (isset($_SESSION['id'])): ?>
         <a href="profileView.php" class="text-gray-700 hover:text-blue-600 font-medium text-sm px-4 py-2">Profile</a>
         <form action="logout.php" method="POST" class="inline">
-            <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
             <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-full text-sm px-5 py-2.5 transition-all">
                 Log Out
             </button>
