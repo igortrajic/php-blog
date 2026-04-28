@@ -1,8 +1,8 @@
 <?php
 
+require_once 'flashErrors.php';
 require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Posts.php';
-require_once 'flashErrors.php';
 
 $message = "";
 if (!isset($_SESSION['id'])) {
@@ -47,7 +47,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'title' => $title,
                 'content' => $content,
                 'image' => $imagePath,
-                'user_id' => $_SESSION['id']
+                'user_id' => $_SESSION['id'],
+                'category_id' => isset($_POST['category_id']) ? (int)$_POST['category_id'] : null,
             ]);
 
             if ($post->moveFile($tmpName)) {
@@ -68,5 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-
-include 'postCreationView.php';
+$categories = Post::getAllCategories(Database::getConnection());
+require 'postCreationView.php';
+renderPostCreation($categories, $message);

@@ -1,5 +1,5 @@
 <?php include 'header.php'; ?>
-<main class="pt-32 pb-12 px-4 flex justify-center">
+<main class="pt-32 pb-12 px-4 flex justify-center flex-1 w-full">
     <div class="w-full max-w-md bg-white p-8 rounded-2xl border border-gray-100 shadow-lg">
         <h1 class="text-3xl font-black mb-2">Welcome</h1>
         <p class="text-gray-500 mb-8">Log in to manage your account.</p>

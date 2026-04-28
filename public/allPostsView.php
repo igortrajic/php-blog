@@ -1,6 +1,7 @@
 <?php
-$pageTitle = "All Posts - IdeGas";
-include 'header.php';
+function renderAllPosts(array $allPosts, array $categories, int $selectedCategory = 0, string $errorMessage = ''): void {
+    $pageTitle = "All Posts - IdeGas";
+    include 'header.php';
 ?>
 
 <main class="pt-28 pb-12 max-w-7xl mx-auto px-4 flex-1 w-full">
@@ -8,9 +9,22 @@ include 'header.php';
         <h1 class="text-4xl font-black text-gray-900">Archive</h1>
         <p class="text-gray-500 mt-2">Explore every story we've ever told.</p>
 
-        <?php if (isset($errorMessage)): ?>
+        <?php if (!empty($errorMessage)): ?>
             <p class="text-red-500 mt-4"><?= htmlspecialchars($errorMessage) ?></p>
         <?php endif; ?>
+
+        <!-- Category Filter -->
+        <form method="GET" action="allPosts.php" class="mt-6">
+            <select name="category_id" onchange="this.form.submit()"
+                class="px-4 py-2.5 rounded-xl border border-gray-200 focus:border-blue-500 outline-none text-sm font-medium">
+                <option value="0">All Categories</option>
+                <?php foreach ($categories as $category): ?>
+                    <option value="<?= (int)$category['id'] ?>" <?= (int)$category['id'] === $selectedCategory ? 'selected' : '' ?>>
+                        <?= htmlspecialchars($category['name']) ?>
+                    </option>
+                <?php endforeach; ?>
+            </select>
+        </form>
     </header>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -21,11 +35,13 @@ include 'header.php';
                         <img src="<?= htmlspecialchars($post['image']) ?>" class="w-full h-full object-cover" alt="<?= htmlspecialchars($post['title']) ?>">
                     </div>
                     <div class="p-4 flex flex-col grow">
-                        <h2 class="font-bold text-gray-900 text-lg line-clamp-1"><?= htmlspecialchars($post['title']) ?></h2>
-
+                        <span class="text-xs font-bold text-blue-600 uppercase tracking-widest">
+                            <?= htmlspecialchars($post['category_name'] ?? 'Uncategorized') ?>
+                        </span>
+                        <h2 class="font-bold text-gray-900 text-lg line-clamp-1 mt-1"><?= htmlspecialchars($post['title']) ?></h2>
                         <?php
-                        $cleanContent = strip_tags($post['content']);
-                        $excerpt = mb_strlen($cleanContent) > 100 ? mb_substr($cleanContent, 0, 100) . '...' : $cleanContent;
+                            $cleanContent = strip_tags($post['content']);
+                            $excerpt = mb_strlen($cleanContent) > 100 ? mb_substr($cleanContent, 0, 100) . '...' : $cleanContent;
                         ?>
                         <p class="text-sm text-gray-500 mt-2 grow"><?= htmlspecialchars($excerpt) ?></p>
                         <a href="postDetail.php?id=<?= urlencode($post['id']) ?>" class="inline-block mt-4 text-sm font-bold text-gray-900 hover:text-blue-600">Read Article →</a>
@@ -34,10 +50,11 @@ include 'header.php';
             <?php endforeach; ?>
         <?php else: ?>
             <div class="col-span-full text-center text-gray-500">
-                <p>No posts found.</p>
+                <p>No posts found<?= $selectedCategory > 0 ? ' in this category' : '' ?>.</p>
             </div>
         <?php endif; ?>
     </div>
 </main>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';
+}

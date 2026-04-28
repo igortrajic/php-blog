@@ -1,4 +1,7 @@
-<?php include 'header.php'; ?>
+<?php 
+function renderPostCreation(array $categories, string $message = ''): void {
+    include 'header.php';
+ ?>
 <main class="pt-28 pb-12 max-w-2xl mx-auto px-4 flex-1 w-full">
     <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
 
@@ -16,6 +19,17 @@
             <div>
                 <label class="block mb-2 text-sm font-bold text-gray-700">Post Title</label>
                 <input type="text" name="title" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 transition-all outline-none" placeholder="Enter a catchy title...">
+            </div>
+            <div>
+                <label class="block mb-2 text-sm font-bold text-gray-700">Category</label>
+                <select name="category_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none">
+                    <option value="">-- Select a category --</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= (int)$category['id'] ?>">
+                            <?= htmlspecialchars($category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div>
@@ -45,4 +59,5 @@
     </div>
 </main>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';
+}

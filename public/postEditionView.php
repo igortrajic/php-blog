@@ -1,5 +1,5 @@
 <?php
-function renderPostEdition(array $post, string $message = ''): void {
+function renderPostEdition(array $post, array $categories, string $message = ''): void {
     include 'header.php';
 ?>
 
@@ -22,6 +22,18 @@ function renderPostEdition(array $post, string $message = ''): void {
                 <label class="block mb-2 text-sm font-bold text-gray-700">Post Title</label>
                 <input type="text" name="title" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 outline-none" 
                        value="<?= htmlspecialchars($post['title']) ?>">
+            </div>
+
+            <div>
+                <label class="block mb-2 text-sm font-bold text-gray-700">Category</label>
+                <select name="category_id" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none">
+                    <option value="">-- Select a category --</option>
+                    <?php foreach ($categories as $category): ?>
+                        <option value="<?= (int)$category['id'] ?>" <?= (int)$category['id'] === (int)$post['category_id'] ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($category['name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
             </div>
 
             <div>
