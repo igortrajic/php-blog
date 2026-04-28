@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       session_regenerate_id(true);
       $_SESSION['id'] = $user['id'];
       $_SESSION['name'] = $user['name'];
-      $_SESSION ['role']= $user['role'];
+      $_SESSION['role']= $user['role'];
       set_flash('You have been logged in successfully.', 'success');
       header("Location: index.php" );
       exit();
