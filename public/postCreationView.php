@@ -1,4 +1,5 @@
-<?php include 'header.php'; ?> <main class="pt-28 pb-12 max-w-2xl mx-auto px-4">
+<?php include 'header.php'; ?>
+ <main class="pt-28 pb-12 max-w-2xl mx-auto px-4 flex-1 w-full">
     <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
         
         <?php if (!empty($message)): ?>
