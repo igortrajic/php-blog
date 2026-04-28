@@ -2,7 +2,8 @@ create table users (
     id integer primary key autoincrement,
     name varchar(200) not null,
     email varchar(255) not null unique,
-    password text not null
+    password text not null,
+    role text not null default 'user'
 );
 
 create table posts (

@@ -76,6 +76,13 @@ class Post {
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         return $stmt->execute();
     }
+
+    public static function delete(PDO $db, int $id): bool {
+    $sql = "DELETE FROM posts WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
 }
 
 ?>

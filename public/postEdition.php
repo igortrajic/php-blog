@@ -17,10 +17,11 @@ if (!$post) {
     header('Location: allPosts.php?error=not_found');
     exit;
 }
-if (!isset($_SESSION['id']) || $_SESSION['id'] != $post['user_id']){
-    header('Location: allPosts.php?error=unauthorized');
+if (!isset($_SESSION['id']) || ($_SESSION['id'] != $post['user_id'] && ($_SESSION['role'] ?? '') !== 'admin')){
+    set_flash("You don't have permission to edit that post!", 'error');
+    header('Location: allPosts.php');
     exit();
-};
+}
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
