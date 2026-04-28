@@ -9,14 +9,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 
-if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
-    die("CSRF token validation failed.");
-}
-
 if (!isset($_SESSION['id'])) {
     set_flash("You must be logged in.", 'error');
     header('Location: login.php');
     exit();
+}
+
+if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    die("CSRF token validation failed.");
 }
 
 $id = isset($_POST['id']) ? (int)$_POST['id'] : 0;
