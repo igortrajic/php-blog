@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../src/Database.php'; 
+require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Posts.php';
 
 session_start();
@@ -17,14 +17,14 @@ if (!$post) {
     header('Location: allPosts.php?error=not_found');
     exit;
 }
-if (!isset($_SESSION['id']) || ($_SESSION['id'] != $post['user_id'] && ($_SESSION['role'] ?? '') !== 'admin')){
+if (!isset($_SESSION['id']) || ($_SESSION['id'] != $post['user_id'] && ($_SESSION['role'] ?? '') !== 'admin')) {
     set_flash("You don't have permission to edit that post!", 'error');
     header('Location: allPosts.php');
     exit();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("CSRF token validation failed.");
     }
     $title = trim($_POST['title'] ?? '');
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $finfo = new finfo(FILEINFO_MIME_TYPE);
         $realMimeType = $finfo->file($file['tmp_name']);
-        
+
         $allowedExtensions = ['jpg', 'jpeg', 'png'];
         $allowedMimeTypes = ['image/jpeg', 'image/png'];
 
@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $destination = 'uploads/' . $newName;
 
             if (move_uploaded_file($file['tmp_name'], $destination)) {
-                $imagePath = $destination; 
+                $imagePath = $destination;
             } else {
                 $errors[] = "File system error: Failed to move uploaded image.";
             }
@@ -79,3 +79,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 include 'postEditionView.php';
+renderPostEdition($post, $message);
