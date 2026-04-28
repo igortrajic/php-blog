@@ -1,6 +1,6 @@
-<?php 
-    $pageTitle = "Home - IdeGas";
-    include 'header.php'; 
+<?php
+$pageTitle = "Home - IdeGas";
+include 'header.php';
 ?>
 
 <main class="pt-28 pb-12 max-w-7xl mx-auto px-4 flex-1 w-full">

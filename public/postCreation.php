@@ -1,16 +1,16 @@
 <?php
 
-require_once __DIR__ . '/../src/Database.php'; 
+require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Posts.php';
 require_once 'flashErrors.php';
 
-$message = ""; 
-if (!isset($_SESSION['id'])){
+$message = "";
+if (!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit();
 }
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
+    if (!isset($_POST['csrf_token']) || !isset($_SESSION['csrf_token']) || $_POST['csrf_token'] !== $_SESSION['csrf_token']) {
         die("CSRF token validation failed.");
     }
     $title = filter_var($_POST['title'] ?? '', FILTER_SANITIZE_SPECIAL_CHARS);
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($title) || empty($content)) {
         $message = "Title and content are required!";
-    } elseif(!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] !== UPLOAD_ERR_OK){
+    } elseif (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] !== UPLOAD_ERR_OK) {
         $message = "Please select a valid image!";
     } else {
         $fileName = $_FILES['fileToUpload']['name'];
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         } else {
             $imagePath = 'uploads/' . uniqid('post_', true) . '.' . $extension;
 
-        
+
             $post = new Post([
                 'title' => $title,
                 'content' => $content,
@@ -56,8 +56,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($post->create($db)) {
                     $message = "Post created successfully!";
                     set_flash('Post created successfully.', 'success');
-                     header("Location: index.php");
-                     exit();
+                    header("Location: index.php");
+                    exit();
                 } else {
                     $message = "Error saving post.";
                 }
@@ -70,4 +70,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
 include 'postCreationView.php';
-?>

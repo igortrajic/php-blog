@@ -12,11 +12,11 @@
                 <?php endforeach; ?>
             </div>
         <?php endif; ?>
-        <form action="register.php" class="space-y-5" method="POST" >
+        <form action="register.php" class="space-y-5" method="POST">
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
             <div>
                 <label class="block mb-2 text-sm font-medium">Full Name</label>
-                                <input type="text" name='name' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example" value="<?php echo htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="text" name='name' class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-blue-500 outline-none" placeholder="example" value="<?php echo htmlspecialchars($_POST['name'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
             <div>
                 <label class="block mb-2 text-sm font-medium">Email Address</label>

@@ -1,5 +1,5 @@
 <?php
-require_once 'flashErrors.php'; 
+require_once 'flashErrors.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
@@ -25,10 +25,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     session_start();
     session_regenerate_id(true);
     set_flash("Logged out successfully. See you soon!", "success");
-    
+
     header("Location: index.php");
     exit();
-
 } else {
     header("Location: index.php");
     exit();

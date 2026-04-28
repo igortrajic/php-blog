@@ -1,6 +1,9 @@
-<?php include 'header.php'; ?>
+<?php
+function renderPostEdition(array $post, string $message = ''): void {
+    include 'header.php';
+?>
 
-<main class="pt-28 pb-12 max-w-2xl mx-auto px-4">
+<main class="pt-28 pb-12 max-w-2xl mx-auto px-4 flex-1 w-full">
     <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
         
         <?php if (!empty($message)): ?>
@@ -13,7 +16,6 @@
         
         <form action="postEdition.php?id=<?= (int)$post['id'] ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-            
             <input type="hidden" name="id" value="<?= (int)$post['id'] ?>">
 
             <div>
@@ -48,4 +50,5 @@
     </div>
 </main>
 
-<?php include 'footer.php'; ?>
+<?php include 'footer.php';
+}

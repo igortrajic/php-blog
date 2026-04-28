@@ -1,7 +1,7 @@
 <?php include 'header.php'; ?>
- <main class="pt-28 pb-12 max-w-2xl mx-auto px-4 flex-1 w-full">
+<main class="pt-28 pb-12 max-w-2xl mx-auto px-4 flex-1 w-full">
     <div class="bg-white p-8 rounded-2xl border border-gray-100 shadow-sm">
-        
+
         <?php if (!empty($message)): ?>
             <div class="mb-6 p-4 rounded-xl bg-blue-50 text-blue-700 font-medium border border-blue-100">
                 <?= htmlspecialchars($message) ?>
@@ -9,10 +9,10 @@
         <?php endif; ?>
 
         <h1 class="text-3xl font-bold mb-8 text-gray-900">Create New Post</h1>
-        
+
         <form action="postCreation.php" method="POST" enctype="multipart/form-data" class="space-y-6">
             <input type="hidden" name="csrf_token" value="<?= $_SESSION['csrf_token'] ?>">
-            
+
             <div>
                 <label class="block mb-2 text-sm font-bold text-gray-700">Post Title</label>
                 <input type="text" name="title" class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-4 focus:ring-blue-50/50 focus:border-blue-500 transition-all outline-none" placeholder="Enter a catchy title...">
@@ -28,7 +28,7 @@
                             </svg>
                             <p class="text-xs text-gray-500">Click to upload or drag and drop</p>
                         </div>
-                        <input type="file" name="fileToUpload" id="fileToUpload" class="hidden"  />
+                        <input type="file" name="fileToUpload" id="fileToUpload" class="hidden" />
                     </label>
                 </div>
             </div>
