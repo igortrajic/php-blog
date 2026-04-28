@@ -53,4 +53,13 @@ class User
             ':id'       => $id,
         ]);
     }
+
+    public static function getPasswordById(PDO $db, int $id): string|false {
+    $sql = "SELECT password FROM users WHERE id = :id";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':id', $id, PDO::PARAM_INT);
+    $stmt->execute();
+    $row = $stmt->fetch();
+    return $row ? $row['password'] : false;
+}
 }

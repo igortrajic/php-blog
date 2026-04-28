@@ -30,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($section === 'profile') {
         $name  = trim($_POST['name'] ?? '');
         $email = trim($_POST['email'] ?? '');
+        $user['name'] = $name;
+        $user['email'] = $email;
 
         if (empty($name)) {
             $errors[] = "Name is required.";
@@ -61,9 +63,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new      = $_POST['new_password'] ?? '';
         $confirm  = $_POST['confirm_password'] ?? '';
 
-        $fullUser = User::getUserByEmail($db, $user['email']);
-
-        if (!password_verify($current, $fullUser['password'])) {
+        $currentHash = User::getPasswordById($db, (int)$_SESSION['id']);
+        if (!$currentHash || !password_verify($current, $currentHash)) {
             $errors[] = "Current password is incorrect.";
         }
         if (empty($new)) {

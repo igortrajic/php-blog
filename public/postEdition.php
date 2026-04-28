@@ -79,4 +79,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 include 'postEditionView.php';
-renderPostEdition($post, $message);
+renderPostEdition($_SERVER['REQUEST_METHOD'] === 'POST' ? array_merge($post, ['title' => $_POST['title'] ?? $post['title'], 'content' => $_POST['content'] ?? $post['content']]) : $post, $message);
