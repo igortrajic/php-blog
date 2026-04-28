@@ -2,6 +2,7 @@
 session_start();
 require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Users.php';
+require_once 'flashErrors.php'; 
 
 $db = Database::getConnection();
 $error = "";
@@ -20,6 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       session_regenerate_id(true);
       $_SESSION['id'] = $user['id'];
       $_SESSION['name'] = $user['name'];
+      set_flash('You have been logged in successfully.', 'success');
       header("Location: index.php" );
       exit();
     } else {
