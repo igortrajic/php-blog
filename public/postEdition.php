@@ -5,6 +5,9 @@ require_once 'flashErrors.php';
 
 
 $message = "";
+$title   = '';
+$content = '';
+$errors  = [];
 $db = Database::getConnection();
 
 $id = isset($_REQUEST['id']) ? (int)$_REQUEST['id'] : 0;
@@ -83,8 +86,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $message = implode(" ", $errors);
     }
 }
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($errors)) {
+    $post['title']       = $title;
+    $post['content']     = $content;
+    $post['category_id'] = !empty($_POST['category_id']) ? (int)$_POST['category_id'] : null;
+}
 
 $categories = Post::getAllCategories($db);
-
 require 'postEditionView.php';
 renderPostEdition($post, $categories, $message);

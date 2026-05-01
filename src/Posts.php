@@ -92,7 +92,7 @@ class Post
         $stmt->bindValue(':title',       $this->title,      PDO::PARAM_STR);
         $stmt->bindValue(':content',     $this->content,    PDO::PARAM_STR);
         $stmt->bindValue(':image',       $this->image,      PDO::PARAM_STR);
-        $stmt->bindValue(':category_id', $this->categoryId, PDO::PARAM_INT);
+        $stmt->bindValue(':category_id', $this->categoryId, $this->categoryId === null ? PDO::PARAM_NULL : PDO::PARAM_INT);
         $stmt->bindValue(':id',          $id,               PDO::PARAM_INT);
         return $stmt->execute();
     }

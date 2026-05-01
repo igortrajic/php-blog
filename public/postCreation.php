@@ -68,7 +68,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
+$postData = [
+    'title'       => $_POST['title'] ?? '',
+    'content'     => $_POST['content'] ?? '',
+    'category_id' => $_POST['category_id'] ?? '',
+];
 
 $categories = Post::getAllCategories(Database::getConnection());
 require 'postCreationView.php';
-renderPostCreation($categories, $message);
+renderPostCreation($postData, $categories, $message);
