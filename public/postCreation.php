@@ -22,6 +22,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($title) || empty($content)) {
         $message = "Title and content are required!";
+    } elseif (mb_strlen($title) > 100) {
+        $message = "Title must be under 100 characters.";
     } elseif (!isset($_FILES['fileToUpload']) || $_FILES['fileToUpload']['error'] !== UPLOAD_ERR_OK) {
         $message = "Please select a valid image!";
     } else {
