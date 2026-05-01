@@ -19,7 +19,9 @@ include 'header.php';
                         <img src="<?= htmlspecialchars($post['image']) ?>" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" alt="<?= htmlspecialchars($post['title']) ?>">
                     </div>
                     <div class="p-5">
-                        <span class="text-blue-600 text-xs font-bold uppercase tracking-widest">Story</span>
+                        <span class="text-blue-600 text-xs font-bold uppercase tracking-widest">
+                            <?= htmlspecialchars($post['category_name'] ?? 'Uncategorized') ?>
+                        </span>
                         <h2 class="text-lg font-bold mt-2 text-gray-900"><?= htmlspecialchars($post['title']) ?></h2>
                         <a href="postDetail.php?id=<?= $post['id'] ?>" class="inline-block mt-4 text-sm font-bold text-gray-900 hover:text-blue-600">Read Article →</a>
                     </div>

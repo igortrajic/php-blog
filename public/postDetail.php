@@ -1,7 +1,7 @@
 <?php
-session_start();
 require_once __DIR__ . '/../src/Database.php';
 require_once __DIR__ . '/../src/Posts.php';
+require_once 'flashErrors.php';
 
 $db = Database::getConnection();
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -14,5 +14,5 @@ if (!$post) {
     exit;
 }
 
-require 'postDetailView.php';
+require __DIR__ . '/postDetailView.php';
 renderPostDetail($post);

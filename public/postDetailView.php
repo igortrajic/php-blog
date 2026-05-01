@@ -1,11 +1,12 @@
 <?php
-function renderPostDetail(array $post): void
-{
+function renderPostDetail(array $post): void {
     include 'header.php';
 ?>
 
     <main class="pt-32 pb-12 max-w-3xl mx-auto px-4">
-        <span class="text-blue-600 font-bold text-xs uppercase tracking-widest">Story</span>
+        <span class="text-blue-600 font-bold text-xs uppercase tracking-widest">
+            <?= htmlspecialchars($post['category_name'] ?? 'Uncategorized') ?>
+        </span>
 
         <h1 class="text-4xl font-black text-gray-900 mt-2 mb-6">
             <?= htmlspecialchars($post['title']) ?>
