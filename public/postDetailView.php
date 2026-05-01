@@ -1,5 +1,6 @@
 <?php
-function renderPostDetail(array $post): void {
+function renderPostDetail(array $post): void
+{
     include 'header.php';
 ?>
 
@@ -8,19 +9,18 @@ function renderPostDetail(array $post): void {
             <?= htmlspecialchars($post['category_name'] ?? 'Uncategorized') ?>
         </span>
 
-        <h1 class="text-4xl font-black text-gray-900 mt-2 mb-6">
+        <h1 class="text-4xl font-black text-gray-900 mt-2 mb-6" style="word-break: break-word; overflow-wrap: anywhere;">
             <?= htmlspecialchars($post['title']) ?>
         </h1>
 
         <div class="flex items-center gap-2 text-sm text-gray-500 mb-10">
-            <span class="font-bold text-gray-900">Author</span>
+            <span class="font-bold text-gray-900"><?= htmlspecialchars($post['author_name'] ?? 'Unknown') ?></span>
             <span>•</span>
-            <span>February 16, 2026</span>
+            <span><?= htmlspecialchars(date('F j, Y', strtotime($post['created_at']))) ?></span>
         </div>
+        <img src="<?= htmlspecialchars($post['image']) ?>" class="w-full h-96 object-cover rounded-2xl mb-10" alt="Featured image">
 
-        <img src="<?= htmlspecialchars($post['image']) ?>" class="w-full rounded-2xl mb-10" alt="Featured image">
-
-        <div class="text-gray-700 leading-relaxed text-lg space-y-6">
+        <div class="text-gray-700 leading-relaxed text-lg space-y-6" style="word-break: break-word; overflow-wrap: anywhere;">
             <p><?= nl2br(htmlspecialchars($post['content'])) ?></p>
         </div>
 

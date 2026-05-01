@@ -73,16 +73,16 @@ class Post
     public static function getPostById(PDO $db, int $id): array|false
     {
         $sql = "SELECT posts.id, posts.title, posts.content, posts.image, posts.user_id, posts.category_id,
-                   categories.name AS category_name
+                   posts.created_at, categories.name AS category_name, users.name AS author_name
             FROM posts
             LEFT JOIN categories ON posts.category_id = categories.id
+            LEFT JOIN users ON posts.user_id = users.id
             WHERE posts.id = :id";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch();
     }
-
     public function update(PDO $db, int $id): bool
     {
         $sql = "UPDATE posts
@@ -106,15 +106,15 @@ class Post
     }
 
     public static function getPostsByCategory(PDO $db, int $categoryId): array
-{
-    $sql = "SELECT posts.id, posts.title, posts.content, posts.image, categories.name AS category_name
+    {
+        $sql = "SELECT posts.id, posts.title, posts.content, posts.image, categories.name AS category_name
             FROM posts
             LEFT JOIN categories ON posts.category_id = categories.id
             WHERE posts.category_id = :category_id
             ORDER BY posts.id DESC";
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
+        $stmt = $db->prepare($sql);
+        $stmt->bindValue(':category_id', $categoryId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
