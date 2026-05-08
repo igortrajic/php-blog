@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "Title and content are required.";
     }
     if (mb_strlen($title) > 100) {
-        $errors[] = "Title must be under 100 characters.";
+        $errors[] = "Title must be 100 characters or less.";
     }
 
     if (!empty($_FILES['fileToUpload']['name']) && empty($errors)) {

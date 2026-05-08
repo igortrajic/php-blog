@@ -5,7 +5,7 @@
         <p class="text-gray-500 mb-8">Join the community and start writing.</p>
         <?php if (!empty($error)): ?>
             <div class="mb-5 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-xl">
-                <?php foreach ($error as $e): ?>
+                <?php foreach ((array)$error as $e): ?>
                     <p class="text-red-700 text-sm font-medium">
                         <?= htmlspecialchars($e, ENT_QUOTES, 'UTF-8'); ?>
                     </p>
