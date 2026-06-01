@@ -29,15 +29,15 @@ IdeGas is a lightweight, secure, and modern Content Management System and bloggi
    git clone https://github.com/igortrajic/php-blog.git
    cd php-blog
 ```
-3. **Initialize the database**
+2. **Initialize the database**
 ```bash
 sqlite3 database/database.db < database/schema.sql
 ```
-2. **Start a local development server:**
+3. **Start a local development server:**
 ```bash
    php -S localhost:8080 -t ./public
 ```
-3. **Access the application:**
+4. **Access the application:**
 
     Open your browser and navigate to:
 ```bash
